@@ -1,0 +1,17 @@
+{
+  "name": "disbooru-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^14.14.21",
+    "colorts": "^0.1.63",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-promise-router": "^4.0.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/main.js"
+  }
+}
