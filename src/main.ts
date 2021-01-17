@@ -9,12 +9,7 @@ import database from "./database";
 const app = express();
 const log = new logger();
 
-app.use(cors());
-app.listen(config.port, () => log.success("API is online."));
-app.use(bodyparser.urlencoded({ extended: true }));
-app.use(bodyparser.json());
-app.use("/api", api);
-
+app.use(require("cors")());
 app.use(
     cors({
         origin: ["http://localhost:8081", "http://localhost:8081/api/"],
@@ -22,5 +17,10 @@ app.use(
     })
 );
 
+app.use("/api", api);
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json());
+
+app.listen(config.port, () => log.success("API is online."));
 database.connect()
 log.success("Database connected.")
