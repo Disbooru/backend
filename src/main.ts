@@ -7,12 +7,19 @@ import users from "./routes/users";
 import bodyparser from "body-parser";
 import database from "./database";
 import ratelimit from "express-rate-limit";
+import { ratelimiter } from "./helpers/ratelimiter/index";
 
 const app = express();
 const log = new logger();
+const ratelimits = new ratelimiter()
+const globalLimits = ratelimits.ratelimit({
+    cooldown: 60 * 60 * 1000,
+    max: 10,
+})
+
 const limiter = ratelimit({
     windowMs: 10 * 60 * 1000, 
-    max: 5
+    max: 5,
 });
 
 app.use(require("cors")());
