@@ -7,18 +7,11 @@ import users from "./routes/users";
 import bodyparser from "body-parser";
 import database from "./database";
 import ratelimit from "express-rate-limit";
-import { ratelimiter } from "./helpers/ratelimiter/index";
 import { copyFileSync } from 'fs';
 import poggersAreLoggers from "./helpers/request.logger";
 
 const app = express();
 const log = new logger();
-// const ratelimits = new ratelimiter()
-// // const globalLimits = ratelimits.ratelimit({
-// //     cooldown: 60 * 60 * 1000,
-// //     max: 10,
-// // })
-
 // // const limiter = ratelimit({
 // //     windowMs: 10 * 60 * 1000, 
 // //     max: 5,
