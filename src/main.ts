@@ -8,19 +8,21 @@ import bodyparser from "body-parser";
 import database from "./database";
 import ratelimit from "express-rate-limit";
 import { ratelimiter } from "./helpers/ratelimiter/index";
+import { copyFileSync } from 'fs';
+import poggersAreLoggers from "./helpers/request.logger";
 
 const app = express();
 const log = new logger();
-const ratelimits = new ratelimiter()
-const globalLimits = ratelimits.ratelimit({
-    cooldown: 60 * 60 * 1000,
-    max: 10,
-})
+// const ratelimits = new ratelimiter()
+// // const globalLimits = ratelimits.ratelimit({
+// //     cooldown: 60 * 60 * 1000,
+// //     max: 10,
+// // })
 
-const limiter = ratelimit({
-    windowMs: 10 * 60 * 1000, 
-    max: 5,
-});
+// // const limiter = ratelimit({
+// //     windowMs: 10 * 60 * 1000, 
+// //     max: 5,
+// // });
 
 app.use(require("cors")());
 app.use(
@@ -30,10 +32,11 @@ app.use(
     })
 );
 
-app.use(limiter);
+
+app.use(poggersAreLoggers);
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
-app.use("/api", api, limiter);
+app.use("/api", api);
 app.use("/api/users", users);
 app.use('/images', express.static('images'));
 

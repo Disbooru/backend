@@ -22,6 +22,5 @@ export class authorization implements AuthInterface{
             return res.status(401).end()
         };
     };
-
     // note: add generating and stuff like that for user tokens.
 };
